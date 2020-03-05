@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ListViewXamarin"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="ListViewXamarin.MainPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:Converter x:Key="Converter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <local:TeamInfoRepository />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <syncfusion:SfListView x:Name="listView" GroupHeaderSize="300"
+            AutoFitMode="DynamicHeight"
+            SelectionMode="Single"
+            Margin="{OnPlatform Android='0', iOS='0,30'}"
+            ItemsSource="{Binding MemberDetails}">
+            <syncfusion:SfListView.Behaviors>
+                <local:Behavior/>
+            </syncfusion:SfListView.Behaviors>
+            <syncfusion:SfListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <StackLayout BackgroundColor="LightGray">
+                        <Image x:Name="ScrumMasterImage" Source="{Binding 
+                            Converter={StaticResource Converter}, 
+                            ConverterParameter=ScrumMasterImage}"
+                            VerticalOptions="Center"
+                            HeightRequest="80" WidthRequest="80"
+                            HorizontalOptions="CenterAndExpand"
+                            Margin="10" />
+                        <Label x:Name="ScrumMasterRole" Text="{Binding 
+                            Converter={StaticResource Converter}, 
+                            ConverterParameter=ScrumMasterRole}" 
+                            FontSize="20"   
+                            HorizontalOptions="CenterAndExpand" 
+                            VerticalOptions="Center"/>
+                        <Label x:Name="ScrumMasterName" Text="{Binding 
+                            Converter={StaticResource Converter}, 
+                            ConverterParameter=ScrumMasterName}" 
+                            FontSize="18"
+                            Padding="0,0,0,10"
+                            HorizontalOptions="CenterAndExpand" 
+                            VerticalOptions="Center"/>
+                    </StackLayout>
+                </DataTemplate>
+            </syncfusion:SfListView.GroupHeaderTemplate>
+            <syncfusion:SfListView.LayoutManager>
+                <syncfusion:GridLayout SpanCount="2"/>
+            </syncfusion:SfListView.LayoutManager>
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Image Source="{Binding MemberImage}"
+                            HeightRequest="70" WidthRequest="70" 
+                            Margin="10"/>
+                        <Label Text="{Binding Role}" 
+                            FontSize="20" 
+                            HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding MemberName}" 
+                            FontSize="18" 
+                            Padding="0,0,0,10"
+                            HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </ContentPage.Content>
+</ContentPage>
